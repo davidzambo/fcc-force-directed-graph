@@ -9,24 +9,23 @@ request.onload = () => {
 };
 
 const render = response => {
-    console.log(response);
     const margin = {top: 50, right: 100, bottom: 50, left: 50},
         width = window.innerWidth - margin.left - margin.right,
         height = window.innerHeight - margin.top - margin.bottom,
-        {nodes, links }= response;
+        {nodes, links } = response;
 
+    console.log(nodes, links);
     const svg = d3.select('.container')
         .append('svg')
         .attr('width', width)
         .attr('height', height);
 
-    const simulation = d3.forceSimulation()
-        .size([width, height])
-        .nodes(nodes)
-        .links(links)
-        .on("tick", tick)
-        .linkDistance(300)
-        .start();
+    const force = d3.forceSimulation(nodes)
+        .force("charge", d3.forceManyBody())
+        .force("link", d3.forceLink(links))
+        .force("center", d3.forceCenter());
+    force.nodes(nodes)
+        .force("link").links(links);
 
     const link = svg.selectAll('.link')
         .data(links)
@@ -35,20 +34,20 @@ const render = response => {
         .attr('class', 'link');
 
     const node = svg.selectAll('.node')
-        .data(force.nodes())
+        .data(nodes)
         .enter()
         .append('circle')
         .attr('class', 'node')
-        .attr('r', width * 0.04);
+        .attr('r', 1);
 
-    const tick = () => {
-        node.attr('cx', d => d.x)
-            .attr('cy', d => d.y)
-            .call(force.drag);
-
+    force.on('tick', function() {
         link.attr('x1', d => d.source.x)
             .attr('y1', d => d.source.y)
             .attr('x2', d => d.target.x)
-            .attr('x2', d => d.target.y)
-    }
+            .attr('x2', d => d.target.y);
+
+        node.attr('cx', d => d.x)
+            .attr('cy', d => d.y);
+
+    });
 };
