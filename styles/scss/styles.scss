@@ -1,0 +1,66 @@
+.link {
+  stroke: #ccc;
+}
+
+.node text {
+  pointer-events: none;
+  font: 10px sans-serif;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Rajdhani');
+
+$blue: #1E8AB9;
+$orange: #FF7222;
+$yellow: #F7C41D;
+$red: #FF2929;
+$white: #FFFFFF;
+$background: #F4F1EC;
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+.container {
+  min-height: 100%;
+  margin: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  h1, h3, h4 {
+    text-align: center;
+    margin-bottom: 0;
+    letter-spacing: -1px;
+  }
+  h3, h4 {
+    margin-top: 0;
+  }
+}
+
+svg {
+  display: block;
+  margin: auto;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+footer {
+  background-color: black;
+  padding: 1rem;
+  text-align: center;
+  * {
+    vertical-align: middle;
+  }
+  a {
+    color: white;
+    text-decoration: none;
+  }
+  img {
+    height: 1.2rem;
+    width: auto;
+  }
+}
