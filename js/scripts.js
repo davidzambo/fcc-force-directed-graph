@@ -5,13 +5,14 @@ request.open("GET", DATA_URL, true);
 request.send();
 request.onload = () => {
     const response = JSON.parse(request.response);
+    console.log(response);
     render(response);
 };
 
 const render = response => {
     const margin = {top: 50, right: 100, bottom: 50, left: 50},
-        width = window.innerWidth - margin.left - margin.right,
-        height = window.innerHeight - margin.top - margin.bottom,
+        width = window.innerWidth,
+        height = window.innerHeight,
         {nodes, links } = response;
 
     console.log(nodes, links);
@@ -20,12 +21,10 @@ const render = response => {
         .attr('width', width)
         .attr('height', height);
 
-    const force = d3.forceSimulation(nodes)
-        .force("charge", d3.forceManyBody())
+    const simulation = d3.forceSimulation(nodes)
+        .force("charge", d3.forceManyBody().strength(-10).distanceMin(85).distanceMax(width/2))
         .force("link", d3.forceLink(links))
-        .force("center", d3.forceCenter());
-    force.nodes(nodes)
-        .force("link").links(links);
+        .force("center", d3.forceCenter(width/2, height/2));
 
     const link = svg.selectAll('.link')
         .data(links)
@@ -36,18 +35,22 @@ const render = response => {
     const node = svg.selectAll('.node')
         .data(nodes)
         .enter()
-        .append('circle')
-        .attr('class', 'node')
-        .attr('r', 1);
+        .append('image')
+        .attr('xlink:href', 'images/blank.gif')
+        .attr('width', 16)
+        .attr('height', 11)
+        .attr('x', d => d.x+'px')
+        .attr('y', d => d.y+'px')
+        .attr('class', d => 'flag flag-'+d.code);
 
-    force.on('tick', function() {
+    simulation.on('tick', function() {
         link.attr('x1', d => d.source.x)
             .attr('y1', d => d.source.y)
             .attr('x2', d => d.target.x)
-            .attr('x2', d => d.target.y);
+            .attr('y2', d => d.target.y);
 
-        node.attr('cx', d => d.x)
-            .attr('cy', d => d.y);
+        node.attr('x', d => d.x)
+            .attr('y', d => d.y);
 
     });
 };

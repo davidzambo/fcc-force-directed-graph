@@ -1,11 +1,4 @@
 @import url("https://fonts.googleapis.com/css?family=Rajdhani");
-.link {
-  stroke: #ccc; }
-
-.node text {
-  pointer-events: none;
-  font: 10px sans-serif; }
-
 html,
 body {
   height: 100%;
@@ -32,6 +25,13 @@ svg {
   display: block;
   margin: auto;
   background-color: rgba(255, 255, 255, 0.5); }
+
+.link {
+  stroke: #ccc; }
+
+.node text {
+  pointer-events: none;
+  font: 10px sans-serif; }
 
 footer {
   background-color: black;
