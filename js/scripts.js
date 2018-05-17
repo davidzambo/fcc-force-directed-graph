@@ -21,6 +21,15 @@ const render = response => {
         .attr('width', width)
         .attr('height', height);
 
+    d3.select('.container')
+        .append('svg')
+        .style("display", "none")
+        .append('svg:image')
+        .attr('id', 'flag-icons')
+        .attr('width', 256)
+        .attr('height', 176)
+        .attr('xlink:href', './images/flags.png');
+
     const simulation = d3.forceSimulation(nodes)
         .force("charge", d3.forceManyBody().strength(-10).distanceMin(85).distanceMax(width/2))
         .force("link", d3.forceLink(links))
@@ -35,13 +44,24 @@ const render = response => {
     const node = svg.selectAll('.node')
         .data(nodes)
         .enter()
-        .append('image')
-        .attr('xlink:href', 'images/blank.gif')
-        .attr('width', 16)
-        .attr('height', 11)
-        .attr('x', d => d.x+'px')
-        .attr('y', d => d.y+'px')
+        .append('g')
+        .attr('clip-path', 'url(#flag-icons');
+
+    node.append('use')
+        .attr('xlink:href', "#flag-icons")
         .attr('class', d => 'flag flag-'+d.code);
+
+    node.selectAll('use')
+        .attr('transform', function(){
+            const pos = d3.select(this)
+                .style("background-position")
+                .replace(/[px]/g, "")
+                .replace(" ", ",");
+            return `translate (${pos})`;
+        });
+
+    node.attr('transform', d => `translate(${d.x - 5}, ${d.y - 2})`)
+        .on('mouseover', d => console.log(d.country));
 
     simulation.on('tick', function() {
         link.attr('x1', d => d.source.x)

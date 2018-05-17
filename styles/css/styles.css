@@ -10,7 +10,7 @@ body {
 .container {
   min-height: 100%;
   margin: auto;
-  position: relative;
+  position: absolute;
   display: flex;
   flex-direction: column;
   justify-content: flex-end; }
@@ -20,6 +20,9 @@ body {
     letter-spacing: -1px; }
   .container h3, .container h4 {
     margin-top: 0; }
+
+.flag {
+  position: absolute; }
 
 svg {
   display: block;

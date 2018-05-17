@@ -19,7 +19,7 @@ body {
 .container {
   min-height: 100%;
   margin: auto;
-  position: relative;
+  position: absolute;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -31,6 +31,9 @@ body {
   h3, h4 {
     margin-top: 0;
   }
+}
+.flag{
+  position: absolute;
 }
 
 svg {
