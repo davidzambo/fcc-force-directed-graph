@@ -1,40 +1,67 @@
-@import url("https://fonts.googleapis.com/css?family=Rajdhani");
+@import url("https://fonts.googleapis.com/css?family=Abel");
 html,
 body {
   height: 100%;
   width: 100%;
   padding: 0;
   margin: 0;
-  font-family: 'Rajdhani', sans-serif; }
+  font-family: 'Abel', sans-serif;
+  background-color: #F4F1EC; }
 
 .container {
   min-height: 100%;
   margin: auto;
-  position: absolute;
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end; }
-  .container h1, .container h3, .container h4 {
+  justify-content: flex-end;
+  overflow: hidden; }
+  .container h1 {
     text-align: center;
-    margin-bottom: 0;
-    letter-spacing: -1px; }
-  .container h3, .container h4 {
-    margin-top: 0; }
+    letter-spacing: -2px;
+    padding: 0.25rem 1rem;
+    display: inline-block;
+    margin: 10px auto; }
 
-.flag {
-  position: absolute; }
+.hidden {
+  display: none; }
+
+#tooltip {
+  position: absolute;
+  background-color: #1E8AB9;
+  color: #FFFFFF;
+  border-radius: 10px;
+  z-index: 10; }
+  #tooltip h3 {
+    margin: 0.5rem 1rem;
+    letter-spacing: -2px; }
+  #tooltip::after {
+    content: " ";
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 10px solid #1E8AB9;
+    position: absolute;
+    left: 20px;
+    bottom: -10px; }
+
+.flag-container {
+  position: absolute;
+  top: 0;
+  left: 0; }
 
 svg {
   display: block;
   margin: auto;
-  background-color: rgba(255, 255, 255, 0.5); }
+  background-color: #F4F1EC; }
 
 .link {
-  stroke: #ccc; }
+  stroke: #ccc;
+  stroke-width: 1px; }
 
-.node text {
-  pointer-events: none;
-  font: 10px sans-serif; }
+.node {
+  position: absolute; }
 
 footer {
   background-color: black;

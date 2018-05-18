@@ -3,7 +3,6 @@
  */
 
 .flag {
-    display: inline-block;
     width: 16px;
     height: 11px;
     background: url('../../images/flags.png') no-repeat;
